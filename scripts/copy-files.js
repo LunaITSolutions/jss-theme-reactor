@@ -57,7 +57,7 @@ function createPackageFile() {
     } = packageData;
 
     const minimalPackage = {
-      name: 'jss-theme-reactor',
+      name: '@luna/jss-theme-reactor',
       author,
       version,
       description,

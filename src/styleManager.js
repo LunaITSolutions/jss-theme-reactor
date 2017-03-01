@@ -19,7 +19,6 @@ export function createStyleManager({ jss, theme = {} }: StyleManagerOptions = {}
   // Register custom jss generateClassName function
   jss.options.generateClassName = generateClassName;
 
-  
   function generateClassName(str: string, rule: Object): string {
     const hash = createHash(theme.id);
     str = rule.name ? `${rule.name}-${hash}` : hash;
@@ -44,6 +43,7 @@ export function createStyleManager({ jss, theme = {} }: StyleManagerOptions = {}
     reset,
     rerender,
     getClasses,
+    getJssStyleSheet,
     updateTheme,
     prepareInline,
     sheetsToString,
@@ -76,6 +76,11 @@ export function createStyleManager({ jss, theme = {} }: StyleManagerOptions = {}
   function getClasses(styleSheet: ThemeReactorStyleSheet): Object|null {
     const mapping = find(sheetMap, { styleSheet });
     return mapping ? mapping.classes : null;
+  }
+
+  function getJssStyleSheet(styleSheet: ThemeReactorStyleSheet): Object|null {
+    const mapping = find(sheetMap, { styleSheet });
+    return mapping ? mapping.jssStyleSheet : null;
   }
 
   /**
