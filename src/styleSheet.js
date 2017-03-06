@@ -1,5 +1,23 @@
 // @flow
 
+const mergeRules = (rulesObject, newRulesObject) => {
+
+  // Filter out the non media queries out of the newRulesObject
+  Object.keys(newRulesObject).forEach(newRuleProp => {
+    var newRuleValue = newRulesObject[newRuleProp]
+    if (typeof newRuleValue == 'object'){
+      // Need to merge these in
+      if (rulesObject[newRuleProp])
+        mergeRules(rulesObject[newRuleProp], newRulesObject[newRuleProp])
+      else
+        rulesObject[newRuleProp] = newRulesObject[newRuleProp]
+    } else {
+      rulesObject[newRuleProp] = newRuleValue
+    }
+  })
+
+}
+
 export function createStyleSheet(
   name: string,
   callback: Object|((theme: Object) => Object),
@@ -25,14 +43,8 @@ export function createStyleSheet(
   function createRules(theme: Object = {}): Object {
     const rules = typeof callback === 'function' ? callback(theme) : callback;
 
-    additionalRules.forEach(newRules => {
-      Object.keys(newRules).forEach(ruleName => {
-        if (rules[ruleName])
-          Object.assign(rules[ruleName], newRules[ruleName])
-        else
-          rules[ruleName] = newRules[ruleName]
-      })
-    })
+
+    additionalRules.forEach(newRules => mergeRules(rules, newRules))
 
     if (!theme.overrides || !theme.overrides[name]) {
       return rules;
