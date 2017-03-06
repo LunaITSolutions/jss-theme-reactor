@@ -5,7 +5,7 @@
   "version": "0.10.1",
   "scripts": {
     "build": "babel src --ignore *.spec.js --out-dir build && babel-node scripts/copy-files.js",
-    "watch": "babel src --ignore *.spec.js --out-dir build --watch",
+    "start": "babel src --ignore *.spec.js --out-dir build --watch",
     "build-publish": "npm run build && cd build && npm publish && cd .. && npm run clean",
     "clean": "rimraf build",
     "flow": "flow --show-all-errors",
