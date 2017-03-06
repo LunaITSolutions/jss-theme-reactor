@@ -32,12 +32,20 @@ export function createStyleSheet(
     options,
     createRules,
     addRules,
+    removeRules,
   };
 
   const additionalRules = []
 
   function addRules(newRules){
-    additionalRules.push(newRules)
+    return additionalRules.push(newRules)
+  };
+
+  function removeRules(rules){
+    var index = additionalRules.indexOf(rules)
+    if (index != -1)
+      return additionalRules.splice(index, 1)[0]
+    return null
   };
 
   function createRules(theme: Object = {}): Object {
