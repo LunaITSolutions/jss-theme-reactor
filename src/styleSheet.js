@@ -38,14 +38,15 @@ export function createStyleSheet(
   const additionalRules = []
 
   function addRules(newRules){
-    return additionalRules.push(newRules)
+    additionalRules.push(newRules)
+    return newRules
   };
 
   function removeRules(rules){
     var index = additionalRules.indexOf(rules)
     if (index != -1)
       return additionalRules.splice(index, 1)[0]
-    return null
+    return newRuleValue
   };
 
   function createRules(theme: Object = {}): Object {
